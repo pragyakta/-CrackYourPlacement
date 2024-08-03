@@ -2,36 +2,77 @@ class Solution {
     public void setZeroes(int[][] matrix) {
         int n = matrix.length;
         int m = matrix[0].length;
-        int[][] dup = new int[n][m];
         
-        for(int i = 0; i< n;i++){
-            for(int j = 0 ;j < m;j++){
-                dup[i][j] = matrix[i][j];
+        boolean fcol = false;
+        boolean frow = false;
+        
+        for(int i = 0;i < n; i++){
+            if(matrix[i][0] == 0){
+                fcol = true;
+                break;
             }
         }
         
-        for(int i = 0;i < n;i++){
-            for(int j = 0;j < m;j++){
+        for(int i = 0;i < m; i++){
+            if(matrix[0][i] == 0){
+                frow = true;
+                break;
+            }
+        }
+        
+        for(int i = 1; i< n; i++){
+            for(int j = 1 ;j < m; j++){
                 if(matrix[i][j] == 0){
-                    for(int k = j;k < m;k++){
-                        dup[i][k] = 0;
-                    }
-                    for(int k = j;k >= 0;k--){
-                        dup[i][k] = 0;
-                    }
-                    for(int k = i;k < n;k++){
-                        dup[k][j] = 0;
-                    }
-                    for(int k = i;k >= 0;k--){
-                        dup[k][j] = 0;
-                    }   
+                    matrix[i][0] = 0;
+                    matrix[0][j] = 0;
                 }
             }
         }
-        for(int i = 0; i< n;i++){
-            for(int j = 0 ;j < m;j++){
-                matrix[i][j] = dup[i][j] ;
+        
+        for(int i = 1; i < n; i++){
+            if(matrix[i][0]==0){
+                for(int j = 1 ;j < m; j++){
+                    matrix[i][j] = 0;
+                }
             }
         }
+        
+        for(int j = 1; j < m; j++){
+            if(matrix[0][j]==0){
+                for(int i = 1 ;i < n; i++){
+                    matrix[i][j] = 0;
+                }
+            }
+        }
+        
+//         for(int i = 1; i < n; i++){
+//             if(matrix[i][0] == 0){
+//                 Arrays.fill(matrix[i], 0);
+//             }
+//         }
+        
+//         for(int i = 1; i < m; i++){
+//             if(matrix[0][i] == 0){
+//                 for(int j = 1;j < n;j++){
+//                     matrix[i][j] = 0;
+//                 }
+//             }
+//         }
+        
+        if(fcol){
+            for(int i = 0;i < n; i++){
+                matrix[i][0] = 0;
+            }
+        }
+        
+        if(frow){
+            for(int i = 0;i < m; i++){
+                matrix[0][i] = 0;
+            }
+        }
+        
+        
+        
+        
     }
 }
